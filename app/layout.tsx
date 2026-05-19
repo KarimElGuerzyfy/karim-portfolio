@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Figtree } from "next/font/google";
 import "./globals.css";
 import Taskbar from "@/components/Taskbar/Taskbar";
+import { WindowProvider } from "@/context/WindowContext";
 
 const figtree = Figtree({
   variable: "--font-figtree",
@@ -20,14 +21,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={figtree.variable}
-      suppressHydrationWarning
-    >
-      <body className="font-(--font-figtree) antialiased h-full">
-        {children}
-        <Taskbar />
+    <html lang="en" className={figtree.variable} suppressHydrationWarning>
+      <body className="antialiased h-screen w-screen overflow-hidden">
+        <WindowProvider>
+          {children}
+          <Taskbar />
+        </WindowProvider>
       </body>
     </html>
   );
